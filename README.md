@@ -47,6 +47,7 @@ The server listens on stdio; configure your MCP client to spawn `npm run dev` or
 - `update_task` — Update an existing task by ID.
 - `score_task` — Score a task up or down.
 - `delete_task` — Delete a task by ID.
+- `add_reminder` — Add a reminder to a task by ID, with a time and optional start date.
 - `get_user_stats` — Fetch the authenticated user’s stats.
 
 Each tool returns a human-readable `text` block and a `structuredContent` object for programmatic use.

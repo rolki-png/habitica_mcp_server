@@ -64,7 +64,6 @@ const addReminderSchema = z.object({
     .datetime()
     .optional()
     .describe("Optional start date for the reminder"),
-  message: z.string().optional().describe("Optional reminder message"),
 });
 type AddReminderInput = z.infer<typeof addReminderSchema>;
 
@@ -194,11 +193,10 @@ async function main() {
       description: "Add a reminder to a Habitica task",
       inputSchema: addReminderSchema,
     },
-    async ({ taskId, time, startDate, message }: AddReminderInput) => {
+    async ({ taskId, time, startDate }: AddReminderInput) => {
       const reminder = await client.addReminder(taskId, {
         time,
         startDate,
-        message,
       });
       return {
         content: [{ type: "text", text: toJson(reminder) }],
