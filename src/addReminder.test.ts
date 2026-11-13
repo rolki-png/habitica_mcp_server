@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { HabiticaClient } from "../src/habiticaClient.js";
+import { HabiticaClient } from "./habiticaClient.js";
 
 test("addReminder reads the task then PUTs the reminders array", async () => {
   const calls: { url: string; method: string; body?: any }[] = [];
