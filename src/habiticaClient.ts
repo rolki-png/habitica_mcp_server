@@ -13,7 +13,6 @@ type ApiTaskType = "habit" | "daily" | "todo" | "reward";
 interface HabiticaReminderInput {
   time: string;
   startDate?: string;
-  message?: string;
 }
 
 export class HabiticaClient {
@@ -130,7 +129,18 @@ export class HabiticaClient {
   }
 
   async addReminder(taskId: string, reminder: HabiticaReminderInput) {
-    return this.request(`/tasks/${taskId}/reminders`, "POST", reminder);
+    const task = await this.request<{ reminders?: unknown[] }>(
+      `/tasks/${taskId}`
+    );
+    const existing = task.reminders ?? [];
+    const newReminder = {
+      id: crypto.randomUUID(),
+      time: reminder.time,
+      startDate: reminder.startDate,
+    };
+    return this.request(`/tasks/${taskId}`, "PUT", {
+      reminders: [...existing, newReminder],
+    });
   }
 
   async getUser() {
